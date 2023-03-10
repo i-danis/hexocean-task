@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from .views import UserViewSet, ImageViewSet, ImageArrayViewSet
+from .views import ImageArrayViewSet, ImageViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 

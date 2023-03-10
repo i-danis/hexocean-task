@@ -1,8 +1,8 @@
-from rest_framework import mixins
+from rest_framework import mixins, permissions
 from rest_framework.viewsets import GenericViewSet
 
-from .models import User, Image, ImageArray
-from .serializers import UserSerializer, ImageSerializer, ImageArraySerializer
+from .models import Image, ImageArray, User
+from .serializers import ImageArraySerializer, ImageSerializer, UserSerializer
 
 
 class UserViewSet(
@@ -35,4 +35,9 @@ class ImageArrayViewSet(
     mixins.UpdateModelMixin,
 ):
     serializer_class = ImageArraySerializer
-    queryset = ImageArray.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        return user.image_arrays.all()

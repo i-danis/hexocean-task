@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import User, Image, Tier, Size, ImageArray
+from .models import Image, ImageArray, Size, Tier, User
 
 
 class ImageAdmin(admin.ModelAdmin):
-    readonly_fields = ['image_preview']
+    readonly_fields = ["image_preview"]
 
 
 admin.site.register(User)

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import User, Image, ImageArray, Tier, Size
+
+from .models import Image, ImageArray, Size, Tier, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -7,19 +8,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "username",
-            "email",
-            "firstname",
-            "lastname",
             "tier",
             "password",
         )
         model = User
 
     def create(self, validated_data):
-        user = User(
-            **validated_data
-        )
-        user.set_password(validated_data['password'])
+        user = User(**validated_data)
+        user.set_password(validated_data["password"])
         user.save()
         return user
 
@@ -27,10 +23,9 @@ class UserSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
-            'id',
-            'title',
-            'content',
-            'image_array',
+            "id",
+            "title",
+            "content",
         )
         model = Image
 
@@ -44,7 +39,6 @@ class ImageArraySerializer(serializers.ModelSerializer):
             "id",
             "title",
             "images",
-            "user",
             "image",
         )
         model = ImageArray
