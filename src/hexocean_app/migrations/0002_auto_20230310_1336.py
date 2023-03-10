@@ -6,22 +6,27 @@ from django.db import migrations
 def init_data(apps, schema_editor):
     Size = apps.get_model("hexocean_app", "Size")
 
-    size_200 = Size(height=200).save()
-    size_400 = Size(height=400).save()
+    size_200 = Size(height=200)
+    size_200.save()
+
+    size_400 = Size(height=400)
+    size_400.save()
 
     Tier = apps.get_model("hexocean_app", "Tier")
 
     basic = Tier(
         title="basic",
     )
-    basic.sizes.set([size_200])
+    basic.save()
+    basic.sizes.add(size_200)
     basic.save()
 
     premium = Tier(
         title="premium",
         full_size=True,
     )
-    premium.sizes.set([size_200, size_400])
+    premium.save()
+    premium.sizes.add(size_200, size_400)
     premium.save()
 
     enterprise = Tier(
@@ -29,7 +34,8 @@ def init_data(apps, schema_editor):
         full_size=True,
         expired_link=True,
     )
-    enterprise.sizes.set([size_200, size_400])
+    enterprise.save()
+    enterprise.sizes.add(size_200, size_400)
     enterprise.save()
 
 
