@@ -150,7 +150,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("title", models.CharField(max_length=100, unique=True)),
-                ("expired_link", models.BooleanField(default=False)),
+                ("is_expiration_link", models.BooleanField(default=False)),
                 ("full_size", models.BooleanField(default=False)),
                 ("sizes", models.ManyToManyField(to="hexocean_app.size")),
             ],
@@ -200,6 +200,8 @@ class Migration(migrations.Migration):
                         to="hexocean_app.imagearray",
                     ),
                 ),
+                ("width", models.IntegerField()),
+                ("height", models.IntegerField()),
             ],
         ),
         migrations.AddField(

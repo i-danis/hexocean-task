@@ -32,7 +32,7 @@ def init_data(apps, schema_editor):
     enterprise = Tier(
         title="enterprise",
         full_size=True,
-        expired_link=True,
+        is_expiration_link=True,
     )
     enterprise.save()
     enterprise.sizes.add(size_200, size_400)

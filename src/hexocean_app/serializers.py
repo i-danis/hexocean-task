@@ -31,7 +31,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class ImageArraySerializer(serializers.ModelSerializer):
-    images = ImageSerializer(many=True)
+    images = ImageSerializer(many=True, read_only=True)
     image = serializers.ImageField(write_only=True)
 
     class Meta:
@@ -42,6 +42,10 @@ class ImageArraySerializer(serializers.ModelSerializer):
             "image",
         )
         model = ImageArray
+
+    def create(self, validated_data):
+        image_array = validated_data["image_array"]
+        return image_array
 
 
 class SizeSerializer(serializers.ModelSerializer):
@@ -61,7 +65,7 @@ class TierSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "sizes",
-            "expired_link",
+            "is_expiration_link",
             "full_size",
         )
         model = Tier
