@@ -21,11 +21,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
+    expiration_link = serializers.CharField(read_only=True)
+
     class Meta:
         fields = (
             "id",
             "title",
             "content",
+            "expiration_link",
         )
         model = Image
 
@@ -46,6 +49,12 @@ class ImageArraySerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         image_array = validated_data["image_array"]
         return image_array
+
+    def validate(self, data):
+        print(data["image"].name)
+        if data["image"].name[-3:] not in ["jpg", "png"]:
+            raise serializers.ValidationError("image should be PNG or JPG")
+        return data
 
 
 class SizeSerializer(serializers.ModelSerializer):
