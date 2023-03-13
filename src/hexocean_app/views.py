@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from .constants import MAXIMUM_EXPIRATION_TIME, MINIMUM_EXPIRATION_TIME
 from .models import Image, User
 from .serializers import ImageArraySerializer, ImageSerializer, UserSerializer
 from .services import create_expiration_link, create_image_array
@@ -44,7 +45,10 @@ class ImageViewSet(
         expiration_time = request.query_params.get("expiration_time")
         if request.user.tier.is_expiration_link and expiration_time:
             expiration_time = int(expiration_time)
-            if expiration_time < 300 or expiration_time > 30_000:
+            if (
+                expiration_time < MINIMUM_EXPIRATION_TIME
+                or expiration_time > MAXIMUM_EXPIRATION_TIME
+            ):
                 return Response(
                     data={"message": "expiration_time should be between 300 and 30000"},
                     status=400,

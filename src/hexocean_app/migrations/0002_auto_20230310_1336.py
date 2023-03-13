@@ -6,37 +6,21 @@ from django.db import migrations
 def init_data(apps, schema_editor):
     Size = apps.get_model("hexocean_app", "Size")
 
-    size_200 = Size(height=200)
-    size_200.save()
-
-    size_400 = Size(height=400)
-    size_400.save()
+    size_200 = Size.objects.create(height=200)
+    size_400 = Size.objects.create(height=400)
 
     Tier = apps.get_model("hexocean_app", "Tier")
 
-    basic = Tier(
-        title="basic",
-    )
-    basic.save()
+    basic = Tier.objects.create(title="basic")
     basic.sizes.add(size_200)
-    basic.save()
 
-    premium = Tier(
-        title="premium",
-        full_size=True,
-    )
-    premium.save()
+    premium = Tier.objects.create(title="premium", full_size=True)
     premium.sizes.add(size_200, size_400)
-    premium.save()
 
-    enterprise = Tier(
-        title="enterprise",
-        full_size=True,
-        is_expiration_link=True,
+    enterprise = Tier.objects.create(
+        title="enterprise", full_size=True, is_expiration_link=True
     )
-    enterprise.save()
     enterprise.sizes.add(size_200, size_400)
-    enterprise.save()
 
 
 class Migration(migrations.Migration):
