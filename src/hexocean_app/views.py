@@ -25,9 +25,7 @@ class UserViewSet(
 class ImageViewSet(
     GenericViewSet,
     mixins.ListModelMixin,
-    mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
 ):
     serializer_class = ImageSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -78,7 +76,6 @@ class ImageArrayViewSet(
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
 ):
     serializer_class = ImageArraySerializer
     permission_classes = [permissions.IsAuthenticated]
