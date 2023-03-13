@@ -51,7 +51,6 @@ class ImageArraySerializer(serializers.ModelSerializer):
         return image_array
 
     def validate(self, data):
-        print(data["image"].name)
         if data["image"].name[-3:] not in ["jpg", "png"]:
             raise serializers.ValidationError("image should be PNG or JPG")
         return data
